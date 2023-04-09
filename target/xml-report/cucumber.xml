@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="19.067" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="assertions2" name="TC01_search for tesla" time="18.881">
+<system-out><![CDATA[
+Given I navigate to "https://www.google.com"................................passed
+Then accept the cookies.....................................................passed
+When I search for "Tesla"...................................................passed
+Then verify page source contains "Tesla"....................................passed
+Then verify the result should contain "About" keyword.......................passed
+Then the first result in the page sections should contain "Tesla"...........passed
+Then I hold the browser open................................................passed
+]]></system-out>
+</testcase>
+</testsuite>
