@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import pages.TestPage;
@@ -24,8 +25,33 @@ public class CommonStepDefinitions {
     @Given("I capture the screenshot of the page")
     public void i_capture_the_screenshot_of_the_page() {
 //        Selenide.screenshot("my_screenshot");//OR SIMPLY
-        screenshot(new Date().toString());//giving a dynamic name
+
+        screenshot("image" );//giving a dynamic name   screenshot(new Date().toString());
+
     }
 
 
+    @Given("I open the {string} browser")
+    public void iOpenTheBrowser(String browserType) {
+
+        switch (browserType) {
+
+            case "headless" :
+                Configuration.headless=true;        //by default it is false
+                break;
+            case "firefox" :
+                Configuration.browser = "firefox";     //Configuration.browser = browserType  is same.
+                break;
+            case "safari" :
+                Configuration.browser = "safari";
+                break;
+            case "edge" :
+                Configuration.browser = "edge";
+                break;
+            default :
+                Configuration.browser = "chrome";
+                break;
+
+        }
+    }
 }

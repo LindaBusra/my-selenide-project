@@ -1,26 +1,24 @@
 package stepdefinitions;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.TestPage;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.Locale;
 import static com.codeborne.selenide.Condition.checked;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.actions;
-import static com.codeborne.selenide.Selenide.switchTo;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TestPageStepDefinitions {
 
@@ -238,5 +236,54 @@ public class TestPageStepDefinitions {
     }
 
 
+    //for 13_file_upload.feature
 
+    @And("I try to upload the file on this path {string}")
+    public void iTryToUploadTheFileOnThisPath(String arg0) {
+
+        //Getting the file path : User Directory + FilePath = Full path
+        String path = System.getProperty("user.home") + arg0;
+        System.out.println(path);
+        File fullPath = new File(path);
+
+        //Selecting the file
+        $(By.id("file-upload")).uploadFile(fullPath);       //we did not use TestPage, we located Choose File
+
+        //click upload button
+        $(By.id("file-submit")).click();
+    }
+
+    @Then("I verify the file is uploaded")
+    public void iVerifyTheFileIsUploaded() {
+
+        $(By.xpath("//h3")).shouldHave(Condition.text("File Uploaded!"));
+    }
+
+
+    //for 14_js_executer
+    @And("I scroll down to footer section")
+    public void iScrollDownToFooterSection() {
+     SelenideElement footer =    $(By.xpath("//table[@class='navFooterMoreOnAmazon']"));
+  //      Selenide.executeJavaScript()
+        executeJavaScript("arguments[0].scrollIntoView(true);",footer); //executeJavaScript("JAVASCRIPT CODE", "ELEMENT");
+        //how to scroll to an element with javascript executor -->check in google, find the function
+    }
+
+
+    @And("I click on {string} by JS on amazon table")
+    public void iClickOnByJSOnAmazonTable(String arg0) {
+
+
+         //     //table[@class='navFooterMoreOnAmazon']//*[contains(text(), 'Amazon Music')]
+        //        $(By.xpath("//table[@class='navFooterMoreOnAmazon']//*[contains(text(),'Amazon Music')]"));     We make it dynamic
+
+
+        SelenideElement element = $(By.xpath("//table[@class='navFooterMoreOnAmazon']//*[contains(text(),'"+arg0+"')]"));
+        executeJavaScript("arguments[0].click();",element);
+
+        //        ALTERNATIVELY LOCATING THE ELEMENT WITH JS
+//        executeJavaScript("document.getElementById('nav-logo-sprites').click();");
+
+
+    }
 }

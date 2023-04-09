@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="19.067" tests="1" skipped="0" failures="0" errors="0">
-<testcase classname="assertions2" name="TC01_search for tesla" time="18.881">
+<testsuite name="Cucumber" time="26.936" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="js executor" name="TC01 js executor" time="26.601">
 <system-out><![CDATA[
-Given I navigate to "https://www.google.com"................................passed
-Then accept the cookies.....................................................passed
-When I search for "Tesla"...................................................passed
-Then verify page source contains "Tesla"....................................passed
-Then verify the result should contain "About" keyword.......................passed
-Then the first result in the page sections should contain "Tesla"...........passed
+Given I navigate to "https://www.amazon.com"................................passed
+And I wait for 2 seconds....................................................passed
+And I scroll down to footer section.........................................passed
+And I capture the screenshot of the page....................................passed
+And I click on "Amazon Music" by JS on amazon table.........................passed
 Then I hold the browser open................................................passed
 ]]></system-out>
 </testcase>
